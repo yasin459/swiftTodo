@@ -50,16 +50,37 @@ public class Todo{
         
     }
 }
-func startMenu(){
-    let deck = Deck(name:"deck1")
-    let todo = Todo(title:"1",content:"cont",date:Date(),priority:0,deck:deck)
-    deck.addTodo(todo:todo)
-    print(deck.getName())
-    print(todo.getTitle())
+extension String
+{   
+    func trim() -> String
+   {
+    return self.trimmingCharacters(in: NSCharacterSet.whitespaces)
+   }
 }
-public func sort(array:Array<Todo>,type:String) -> Array<Todo> {
+func startMenu(){
+    while(true){
+        print("hi, please enter one of options below(or type\"end\" to exit):\n" +
+            "1.add deck #name\n" +
+            "2.show deck #name\n" + 
+            "3.show all todos\n" +
+            "4.show all decks\n" +
+            "5.add todo #deckName(type \"_\" if no deck) #title #priority #content\n" +
+            "6.delete todo #deckName(type \"_\" if no deck)  #title\n" +
+            "7.edit todo #deckName(may be empty)  #title\n" +
+            "8.end\n")
+        let input:String! = readLine()
+        if input.trim()=="end"{
+            print("bye:)")       
+            return
+        }else {
+            print("****wrong input****\n")
+        }
+    }
+}
+public func sort(array:Array<Todo>,type:String,order:String) -> Array<Todo> {
     // to sort array
     // type can be : date,title,priority
+    // order is assce or desce
     return []
 }
 startMenu()
