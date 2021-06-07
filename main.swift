@@ -72,6 +72,7 @@ public class Todo{
     }
     public func hasDeck () -> Bool {
         deck != nil
+        return true
     }
     public static func deleteTodo(todo: Todo){
         if todo.hasDeck() {
@@ -89,9 +90,31 @@ public class Todo{
         }
         return nil
     }
+    public static func sorting(type:String,order:String)-> [Todo]  {
+        if type=="1" {
+            if order=="2"{
+                return Todo.allTodos.sorted(by: { $0.date > $1.date })
+            }else{
+                return Todo.allTodos.sorted(by: { $0.date < $1.date })
+            }
+        }else if type=="2" {
+            if order=="2"{
+                return Todo.allTodos.sorted(by: { $0.title > $1.title })
+            }else{
+                return Todo.allTodos.sorted(by: { $0.title < $1.title })
+            }
+        }else if type == "3" {
+           if order=="2"{
+                return Todo.allTodos.sorted(by: { $0.priority > $1.priority })
+            }else{
+                return Todo.allTodos.sorted(by: { $0.priority < $1.priority })
+            }
+        }
+        return [Todo]();
+    }
 }
 extension String
-{   
+{
     func trim() -> String
    {
     return self.trimmingCharacters(in: NSCharacterSet.whitespaces)
@@ -101,11 +124,11 @@ func startMenu(){
     while(true){
         print("startMenu, please choose a number:\n" +
             "1.Todo Menu\n" +
-            "2.Deck Menu\n" + 
+            "2.Deck Menu\n" +
             "3.end\n")
         let input:String! = readLine()
         if input.trim()=="3"{
-            print("bye:)")       
+            print("bye:)")
             return
         }else if input.trim() == "1"{
             todoMenu()
@@ -121,7 +144,7 @@ func todoMenu(){
     while(true){
         print("todoMenu, please choose a number:\n" +
             "1.add todo\n" +
-            "2.show all todos\n" + 
+            "2.show all todos\n" +
             "3.back\n")
         let input:String! = readLine()
         if input.trim()=="3"{
@@ -133,9 +156,9 @@ func todoMenu(){
         }
         else {
             print("****wrong input****\n")
-        }    
+        }
     }
-    
+
 }
 func addTodo(){
     print("please enter title: ")
@@ -177,7 +200,7 @@ func showAllTodos(){
     while(true){
             print("sort with:\n" +
                 "1.create time\n" +
-                "2.alpha\n" +
+                "2.alphabetical\n" +
                 "3.priority\n" +
                 "4.back\n")
             let input:String! = readLine()
@@ -189,7 +212,7 @@ func showAllTodos(){
                 "2.descending\n")
             let input2:String! = readLine()
             if input2.trim() == "1" || input2.trim() == "2"{
-                sortAndShow(type: input,order: input2)
+                sortAndShow(typeSort: input,orderSort: input2)
                 }else {
                     print("****wrong input****\n")
                 }
@@ -284,7 +307,7 @@ func deckMenu(){
     while(true){
         print("deckMenu, please choose a number:\n" +
             "1.add deck\n" +
-            "2.show all decks\n" + 
+            "2.show all decks\n" +
             "3.back\n")
         let input:String! = readLine()
         if input.trim()=="3"{
@@ -296,7 +319,7 @@ func deckMenu(){
         }
         else {
             print("****wrong input****\n")
-        }    
+        }
     }
 }
 extension String {
@@ -315,7 +338,7 @@ public func addDeck(){
         print("****successful: deck added****\n")
 
     }
-    
+
 }
 public func showAllDecks(){
     for deck in Deck.allDecks {
@@ -368,27 +391,8 @@ public func addTodoToDeck (deck: Deck) {
     deck.addTodo(todo: todo)
     print("****successful: todo added to deck****")
 }
-public func sortAndShow(type:String,order:String)  {
-    var sorted=[Todo]();
-    if type=="1" {
-        if order=="1"{
-            sorted = Todo.allTodos.sorted(by: { $0.date > $1.date })
-        }else{
-            sorted = Todo.allTodos.sorted(by: { $0.date < $1.date })
-        }
-    }else if type=="2" {
-        if order=="1"{
-            sorted = Todo.allTodos.sorted(by: { $0.title > $1.title })
-        }else{
-            sorted = Todo.allTodos.sorted(by: { $0.title < $1.title })
-        }
-    }else if type == "3" {
-       if order=="1"{
-            sorted = Todo.allTodos.sorted(by: { $0.priority > $1.priority })
-        }else{
-            sorted = Todo.allTodos.sorted(by: { $0.priority < $1.priority })
-        }
-    }
+public func sortAndShow(typeSort:String,orderSort:String)  {
+    let sorted=Todo.sorting(type:typeSort,order:orderSort);
     for todo in sorted {
         print("Title: \(todo.getTitle()) Priority: \(todo.getPriority())")
     }
