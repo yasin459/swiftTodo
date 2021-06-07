@@ -10,11 +10,19 @@ public class Deck{
     public func getName()-> String{
         return self.name
     }
+    public func getTodos()-> [Todo]{
+        return self.todos
+    }
     public func addTodo(todo:Todo){
         self.todos.append(todo)
     }
-    public static func getDick(name:String){
-        
+    public static func getDeck(name:String) -> Deck? {
+        for deck in allDecks {
+            if deck.name == name {
+                return deck
+            }
+        }
+        return nil
     }
 }
 public class Todo{
@@ -120,6 +128,7 @@ func addTodo(){
         print("****wrong input for preiority****\n")
     }
 }
+// if exists return false else true
 func titleCheck(title:String)->Bool{
     for item in Todo.allTodos{
         if item.getTitle() == title {
@@ -128,6 +137,7 @@ func titleCheck(title:String)->Bool{
     }
     return true
 }
+// if exists return false else true
 func nameCheck(name:String)->Bool{
     for item in Deck.allDecks{
         if item.getName() == name {
@@ -178,6 +188,45 @@ public func addDeck(){
 }
 public func showAllDecks(){
     //todo dorrin
+}
+public func showDeck () {
+    print("please enter a deck name: ", terminator: "")
+    let deckName: String! = readLine()!.trim()
+    if nameCheck(name: deckName) { // if doesnt exist do error
+        print("****wrong input: name doesnt exist****")
+        return
+    }
+    let deck: Deck! = Deck.getDeck(name: deckName)!
+
+    print(
+            "Deck name: \(deck.getName())",
+            "Number of todos: \(deck.getTodos().count) \n",
+            "   > add todo to this deck?"
+            , separator: "\n", terminator: ""
+    )
+    
+    let doAdd: Bool! = readLine()!.trim().lowercased() == "y"
+    if !doAdd {
+        return
+    }
+    // get title, content, priority
+    print("todo title: ", terminator: "")
+    let title: String! = readLine()!.trim()
+    if !titleCheck(title: title) { // if exists do error
+        print("****wrong input: name already exists****")
+        return
+    }
+    print("todo content: ", terminator: "")
+    let content: String! = readLine()!.trim()
+    print("todo priority: ", terminator: "")
+    let priorityStr: String! = readLine()!.trim()
+    if !priorityStr.isInt {
+        print("****wrong input: priority must be a number****")
+        return
+    }
+    let priority = Int(priorityStr)!
+    let todo = Todo(title: title,content:content, date:Date(),priority:priority)
+    todo.setDeck(deck: deck)
 }
 public func sort(array:Array<Todo>,type:String,order:String) -> Array<Todo> {
     // to sort array
