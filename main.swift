@@ -149,6 +149,9 @@ func nameCheck(name:String)->Bool{
 func showAllTodos(){
     //todo dorrin
 }
+func showTodo() {
+    
+}
 func deckMenu(){
     while(true){
         print("deckMenu, please choose a number:\n" +
@@ -201,15 +204,20 @@ public func showDeck () {
     print(
             "Deck name: \(deck.getName())",
             "Number of todos: \(deck.getTodos().count) \n",
-            "   > add todo to this deck?"
+            "   1. add todo to this deck",
+            "   2. back"
             , separator: "\n", terminator: ""
     )
-    
-    let doAdd: Bool! = readLine()!.trim().lowercased() == "y"
-    if !doAdd {
-        return
+    let opt: String! = readLine()!.trim()
+    if opt == "1" {
+        addTodoToDeck()
+    } else if opt == "2" {
+        showAllDecks()
+    } else {
+        print("****wrong input****")
     }
-    // get title, content, priority
+}
+public func addTodoToDeck () {
     print("todo title: ", terminator: "")
     let title: String! = readLine()!.trim()
     if !titleCheck(title: title) { // if exists do error
