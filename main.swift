@@ -174,7 +174,29 @@ func nameCheck(name:String)->Bool{
     return true
 }
 func showAllTodos(){
-    //todo dorrin
+    while(true){
+            print("sort with:\n" +
+                "1.create time\n" +
+                "2.alpha\n" +
+                "3.priority\n" +
+                "4.back\n")
+            let input:String! = readLine()
+            if input.trim()=="4"{
+                return
+            }else if input.trim() == "1" || input.trim() == "2" || input.trim() == "3" {
+                print("order:\n" +
+                "1.ascenⅾing\n" +
+                "2.descending\n")
+            let input2:String! = readLine()
+            if input2.trim() == "1" || input2.trim() == "2"{
+                sortAndShow(type: input,order: input2)
+                }else {
+                    print("****wrong input****\n")
+                }
+            }else {
+                print("****wrong input****\n")
+            }
+        }
 }
 func showTodo() {
     print("todo title: ", terminator: "")
@@ -296,7 +318,9 @@ public func addDeck(){
     
 }
 public func showAllDecks(){
-    //todo dorrin
+    for deck in Deck.allDecks {
+            print("Name: \(deck.getName())")
+        }
 }
 public func showDeck () {
     print("deck name: ", terminator: "")
@@ -344,10 +368,29 @@ public func addTodoToDeck (deck: Deck) {
     deck.addTodo(todo: todo)
     print("****successful: todo added to deck****")
 }
-public func sort(array:Array<Todo>,type:String,order:String) -> Array<Todo> {
-    // to sort array
-    // type can be : date,title,priority
-    // order is assce or desce
-    return []
+public func sortAndShow(type:String,order:String)  {
+    var sorted=[Todo]();
+    if type=="1" {
+        if order=="1"{
+            sorted = Todo.allTodos.sorted(by: { $0.date > $1.date })
+        }else{
+            sorted = Todo.allTodos.sorted(by: { $0.date < $1.date })
+        }
+    }else if type=="2" {
+        if order=="1"{
+            sorted = Todo.allTodos.sorted(by: { $0.title > $1.title })
+        }else{
+            sorted = Todo.allTodos.sorted(by: { $0.title < $1.title })
+        }
+    }else if type == "3" {
+       if order=="1"{
+            sorted = Todo.allTodos.sorted(by: { $0.priority > $1.priority })
+        }else{
+            sorted = Todo.allTodos.sorted(by: { $0.priority < $1.priority })
+        }
+    }
+    for todo in sorted {
+        print("Title: \(todo.getTitle()) Priority: \(todo.getPriority())")
+    }
 }
 startMenu()
