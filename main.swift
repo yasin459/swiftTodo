@@ -72,7 +72,6 @@ public class Todo{
     }
     public func hasDeck () -> Bool {
         deck != nil
-        return true
     }
     public static func deleteTodo(todo: Todo){
         if todo.hasDeck() {
