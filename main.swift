@@ -193,7 +193,6 @@ func todoMenu(){
 func addTodo(){
     print("please enter title: ",terminator:"")
     let title:String! = readLine()
-    print(title)
     print("please enter content: ",terminator:"")
     let content:String! = readLine()
     print("please enter preiority as a integer: ",terminator:"")
@@ -336,44 +335,6 @@ func showTodo() {
                 }
             }
         }
-
-//        if opt == "1" {
-//            print("new title: ", terminator:"")
-//            let newTitle = readLine()!.trim()
-//            if !titleCheck(title: newTitle) { // if already exists do error
-//                print("****wrong input: todo already exists****")
-//                return
-//            }
-//            todo.setTitle(title: newTitle)
-//        } else if opt == "2" {
-//            print("new priority: ", terminator:"")
-//            let newPriority = readLine()!.trim()
-//            if !newPriority.isInt {
-//                print("****wrong input: priority must be a number****")
-//                return
-//            }
-//            todo.setPriority(priority: Int(newPriority))
-//        } else if opt == "3" {
-//            print("new content: ", terminator:"")
-//            let newContent = readLine()!.trim()
-//            todo.setContent(content: newContent)
-//        } else if opt == "4" {
-//            print("new deck's name: ", terminator:"")
-//            let newDeckName = readLine()!.trim()
-//            if nameCheck(name: newDeckName) { // if doesnt exist do error
-//                print("****wrong input: deck doesnt exists****")
-//                return
-//            }
-//            let deck = Deck.getDeck(name: newDeckName)!
-//            todo.setDeck(deck: deck)
-//            deck.addTodo(todo: todo)
-//        } else if opt == "5" {
-//            return
-//        } else {
-//            print("****wrong input****")
-//            return
-//        }
-//        print("****successful: todo edited****")
     } else if opt == "2" {
         todo.deleteTodo()
         print("****successful: todo deleted****")
@@ -421,11 +382,14 @@ public func addDeck(){
 
 }
 public func showAllDecks(){
+    if Deck.allDecks.isEmpty {
+        print("-no decks made yet-")
+    }
     for deck in Deck.allDecks {
             print("Name: \(deck.getName())")
         }
     while(true){
-        print("All Dexks, please choose a number:\n" +
+        print("All Decks, please choose a number:\n" +
             "1.show deck\n" +
             "2.back\n")
         let input:String! = readLine()
@@ -450,10 +414,10 @@ public func showDeck () {
 
     print("Deck name: \(deck.getName())",
             "Number of todos: \(deck.getTodos().count)",
-            "\(deck.getTodos().isEmpty ? "\n" : "List of todos:\n")",
+            "\(deck.getTodos().isEmpty ? "" : "List of todos:")",
             separator: "\n")
     for (i, todo) in deck.getTodos().enumerated() {
-        print(" \(i)- \(todo)")
+        print("  \(i+1)- \(todo.getTitle())")
     }
     print("   1. add todo to this deck",
             "   2. back"
