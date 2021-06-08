@@ -419,39 +419,29 @@ public func showDeck () {
     for (i, todo) in deck.getTodos().enumerated() {
         print("  \(i+1)- \(todo.getTitle())")
     }
-    print("   1. add todo to this deck",
+    print("   1. move todo to this deck",
             "   2. back"
             , separator: "\n")
     let opt: String! = readLine()!.trim()
     if opt == "1" {
-        addTodoToDeck(deck: deck)
+        moveTodoToDeck(deck: deck)
     } else if opt == "2" {
         return
     } else {
         print("****wrong input****")
     }
 }
-public func addTodoToDeck (deck: Deck) {
+public func moveTodoToDeck (deck: Deck) {
     print("todo title: ", terminator: "")
     let title: String! = readLine()!.trim()
-    if !titleCheck(title: title) { // if exists do error
-        print("****wrong input: name already exists****")
+    if titleCheck(title: title) { // if doesnt exist do error
+        print("****wrong input: todo doesnt exists****")
         return
     }
-    print("todo content: ", terminator: "")
-    let content: String! = readLine()!.trim()
-    print("todo priority: ", terminator: "")
-    let priorityStr: String! = readLine()!.trim()
-    if !priorityStr.isInt {
-        print("****wrong input: priority must be a number****")
-        return
-    }
-    let priority = Int(priorityStr)!
-    let todo = Todo(title: title,content:content, date:Date(),priority:priority)
-    Todo.allTodos.append(todo)
+    let todo = Todo.getTodo(title: title)!
     todo.setDeck(deck: deck)
     deck.addTodo(todo: todo)
-    print("****successful: todo added to deck****")
+    print("****successful: todo moved to deck****")
 }
 public func sortAndShow(typeSort:String,orderSort:String)  {
     let sorted=Todo.sorting(type:typeSort,order:orderSort);
