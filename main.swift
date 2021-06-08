@@ -228,6 +228,27 @@ func nameCheck(name:String)->Bool{
     return true
 }
 func showAllTodos(){
+    for todo in Todo.allTodos {
+        print("Title: \(todo.getTitle()) Priority: \(todo.getPriority())")
+    }
+    while(true){
+            print("All Todos, please choose a number:\n" +
+                "1.sort todo list\n" +
+                "2.show todo\n" +
+                "3.back\n")
+            let input:String! = readLine()
+            if input.trim()=="3"{
+                return
+            }else if input.trim() == "1" {
+                sortMenu()
+            }else if input.trim() == "2"{
+                showTodo()
+            }else {
+                print("****wrong input****\n")
+            }
+        }
+}
+func sortMenu(){
     while(true){
             print("sort with:\n" +
                 "1.create time\n" +
@@ -403,7 +424,21 @@ public func showAllDecks(){
     for deck in Deck.allDecks {
             print("Name: \(deck.getName())")
         }
+    while(true){
+        print("All Dexks, please choose a number:\n" +
+            "1.show deck\n" +
+            "2.back\n")
+        let input:String! = readLine()
+        if input.trim()=="2"{
+            return
+        }else if input.trim()=="1"{
+            showDeck()
+        }else{
+            print("****wrong input****")
+        }
+    }
 }
+
 public func showDeck () {
     print("deck name: ", terminator: "")
     let deckName: String! = readLine()!.trim()
