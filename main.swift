@@ -28,7 +28,7 @@ public class Deck{
         return nil
     }
     public static func == (lhs: Deck, rhs: Deck) -> Bool{
-        lhs.name == rhs.name
+        return lhs.name == rhs.name
     }
 }
 public class Todo{
@@ -72,7 +72,7 @@ public class Todo{
         return self.priority
     }
     public func hasDeck () -> Bool {
-        deck != nil
+        return deck != nil
     }
     public func deleteTodo(){
         if hasDeck() {
@@ -118,7 +118,7 @@ public class Todo{
         return nil
     }
     public static func == (lhs: Todo, rhs: Todo) -> Bool{
-        lhs.title == rhs.title
+        return lhs.title == rhs.title
     }
     public static func sorting(type:String,order:String)-> [Todo]  {
         if type=="1" {
@@ -191,11 +191,12 @@ func todoMenu(){
 
 }
 func addTodo(){
-    print("please enter title: ")
+    print("please enter title: ",terminator:"")
     let title:String! = readLine()
-    print("please enter content: ")
+    print(title)
+    print("please enter content: ",terminator:"")
     let content:String! = readLine()
-    print("please enter preiority as a integer: ")
+    print("please enter preiority as a integer: ",terminator:"")
     let priority:String! = readLine()
     if !titleCheck(title:title.trim()) {
         print("****wrong input: title already exists****\n")
@@ -386,7 +387,7 @@ extension String {
     }
 }
 public func addDeck(){
-    print("please enter name: ")
+    print("please enter name: ",terminator:"")
     let name:String! = readLine()
     if !nameCheck(name:name.trim()) {
         print("****wrong input: name already exists****\n")
