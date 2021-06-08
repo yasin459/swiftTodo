@@ -17,9 +17,7 @@ public class Deck{
         self.todos.append(todo)
     }
     public func deleteTodo(todoToDelete: Todo) {
-        self.todos = self.todos.filter() {
-            $0.getTitle() != todoToDelete.getTitle() // true for anything except todoToDelete
-        }
+        todos.removeAll(where: { $0 == todoToDelete })
     }
     public static func getDeck(name:String) -> Deck? {
         for deck in allDecks {
@@ -28,6 +26,9 @@ public class Deck{
             }
         }
         return nil
+    }
+    public static func == (lhs: Deck, rhs: Deck) -> Bool{
+        lhs.name == rhs.name
     }
 }
 public class Todo{
@@ -73,13 +74,40 @@ public class Todo{
     public func hasDeck () -> Bool {
         deck != nil
     }
-    public static func deleteTodo(todo: Todo){
-        if todo.hasDeck() {
-            todo.deck.deleteTodo(todoToDelete: todo)
+    public func deleteTodo(){
+        if hasDeck() {
+            deck.deleteTodo(todoToDelete: self)
         }
-        allTodos = allTodos.filter() {
-            $0.title != todo.title // true for anything except todo to delete
+        Todo.allTodos.removeAll(where: { $0 == self })
+    }
+    func editField(newVal: String, fieldToEdit: String) -> (Bool, Int) {
+        switch fieldToEdit {
+        case "title":
+            if !titleCheck(title: newVal) { // if already exists do error
+                return (false, 1)
+            } else {
+                title = newVal
+            }
+        case "priority":
+            if !newVal.isInt {
+                return (false, 2)
+            } else {
+                priority = Int(newVal)
+            }
+        case "content":
+            content = newVal
+        case "deck":
+            if nameCheck(name: newVal) { // if doesnt exist do error
+                return (false, 3)
+            } else {
+                deck = Deck.getDeck(name: newVal)
+                deck.addTodo(todo: self)
+            }
+        default:
+            print("****Unexpected field****")
+            return (false, 4)
         }
+        return (true, 0)
     }
     public static func getTodo(title:String) -> Todo? {
         for todo in allTodos {
@@ -88,6 +116,9 @@ public class Todo{
             }
         }
         return nil
+    }
+    public static func == (lhs: Todo, rhs: Todo) -> Bool{
+        lhs.title == rhs.title
     }
     public static func sorting(type:String,order:String)-> [Todo]  {
         if type=="1" {
@@ -255,46 +286,74 @@ func showTodo() {
                 , separator: "\n"
         )
         opt = readLine()!.trim()
-
-        if opt == "1" {
-            print("new title: ", terminator:"")
-            let newTitle = readLine()!.trim()
-            if !titleCheck(title: newTitle) { // if already exists do error
-                print("****wrong input: todo already exists****")
-                return
-            }
-            todo.setTitle(title: newTitle)
-        } else if opt == "2" {
-            print("new priority: ", terminator:"")
-            let newPriority = readLine()!.trim()
-            if !newPriority.isInt {
-                print("****wrong input: priority must be a number****")
-                return
-            }
-            todo.setPriority(priority: Int(newPriority))
-        } else if opt == "3" {
-            print("new content: ", terminator:"")
-            let newContent = readLine()!.trim()
-            todo.setContent(content: newContent)
-        } else if opt == "4" {
-            print("new deck's name: ", terminator:"")
-            let newDeckName = readLine()!.trim()
-            if nameCheck(name: newDeckName) { // if doesnt exist do error
-                print("****wrong input: deck doesnt exists****")
-                return
-            }
-            let deck = Deck.getDeck(name: newDeckName)!
-            todo.setDeck(deck: deck)
-            deck.addTodo(todo: todo)
+        if !opt.isInt || Int(opt)! < 1 || Int(opt)! > 5 {
+            print("****wrong input****")
+            return
         } else if opt == "5" {
             return
         } else {
-            print("****wrong input****")
-            return
+            var todoFields = ["title", "priority", "content", "deck"]
+            print("new \(todoFields[Int(opt)! - 1]): ", terminator: "")
+            let newVal: String! = readLine()!.trim()
+            let res = todo.editField(
+                    newVal: newVal,
+                    fieldToEdit: todoFields[Int(opt)! - 1]
+            )
+            if (res.0 == true) {
+                print("****successful: todo edited****")
+            } else {
+                switch res.1 {
+                case 1:
+                    print("****wrong input: todo already exists****")
+                case 2:
+                    print("****wrong input: priority must be a number****")
+                case 3:
+                    print("****wrong input: deck doesnt exists****")
+                default:
+                    print("****Unexpected error code****")
+                }
+            }
         }
-        print("****successful: todo edited****")
+
+//        if opt == "1" {
+//            print("new title: ", terminator:"")
+//            let newTitle = readLine()!.trim()
+//            if !titleCheck(title: newTitle) { // if already exists do error
+//                print("****wrong input: todo already exists****")
+//                return
+//            }
+//            todo.setTitle(title: newTitle)
+//        } else if opt == "2" {
+//            print("new priority: ", terminator:"")
+//            let newPriority = readLine()!.trim()
+//            if !newPriority.isInt {
+//                print("****wrong input: priority must be a number****")
+//                return
+//            }
+//            todo.setPriority(priority: Int(newPriority))
+//        } else if opt == "3" {
+//            print("new content: ", terminator:"")
+//            let newContent = readLine()!.trim()
+//            todo.setContent(content: newContent)
+//        } else if opt == "4" {
+//            print("new deck's name: ", terminator:"")
+//            let newDeckName = readLine()!.trim()
+//            if nameCheck(name: newDeckName) { // if doesnt exist do error
+//                print("****wrong input: deck doesnt exists****")
+//                return
+//            }
+//            let deck = Deck.getDeck(name: newDeckName)!
+//            todo.setDeck(deck: deck)
+//            deck.addTodo(todo: todo)
+//        } else if opt == "5" {
+//            return
+//        } else {
+//            print("****wrong input****")
+//            return
+//        }
+//        print("****successful: todo edited****")
     } else if opt == "2" {
-        Todo.deleteTodo(todo: todo)
+        todo.deleteTodo()
         print("****successful: todo deleted****")
     } else if opt == "3" {
         return
@@ -353,13 +412,16 @@ public func showDeck () {
     }
     let deck: Deck! = Deck.getDeck(name: deckName)!
 
-    print(
-            "Deck name: \(deck.getName())",
-            "Number of todos: \(deck.getTodos().count) \n",
-            "   1. add todo to this deck",
+    print("Deck name: \(deck.getName())",
+            "Number of todos: \(deck.getTodos().count)",
+            "\(deck.getTodos().isEmpty ? "\n" : "List of todos:\n")",
+            separator: "\n")
+    for (i, todo) in deck.getTodos().enumerated() {
+        print(" \(i)- \(todo)")
+    }
+    print("   1. add todo to this deck",
             "   2. back"
-            , separator: "\n"
-    )
+            , separator: "\n")
     let opt: String! = readLine()!.trim()
     if opt == "1" {
         addTodoToDeck(deck: deck)
@@ -386,6 +448,7 @@ public func addTodoToDeck (deck: Deck) {
     }
     let priority = Int(priorityStr)!
     let todo = Todo(title: title,content:content, date:Date(),priority:priority)
+    Todo.allTodos.append(todo)
     todo.setDeck(deck: deck)
     deck.addTodo(todo: todo)
     print("****successful: todo added to deck****")
