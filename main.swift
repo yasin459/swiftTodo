@@ -175,7 +175,7 @@ func todoMenu(){
         print("todoMenu, please choose a number:\n" +
             "1.add todo\n" +
             "2.show all todos\n" +
-            "3.back\n")
+            "3.back")
         let input:String! = readLine()
         if input.trim()=="3"{
             return
@@ -185,7 +185,7 @@ func todoMenu(){
             showAllTodos()
         }
         else {
-            print("****wrong input****\n")
+            print("****wrong input****")
         }
     }
 
@@ -234,7 +234,7 @@ func showAllTodos(){
             print("All Todos, please choose a number:\n" +
                 "1.sort todo list\n" +
                 "2.show todo\n" +
-                "3.back\n")
+                "3.back")
             let input:String! = readLine()
             if input.trim()=="3"{
                 return
@@ -243,7 +243,7 @@ func showAllTodos(){
             }else if input.trim() == "2"{
                 showTodo()
             }else {
-                print("****wrong input****\n")
+                print("****wrong input****")
             }
         }
 }
@@ -253,22 +253,22 @@ func sortMenu(){
                 "1.create time\n" +
                 "2.alphabetical\n" +
                 "3.priority\n" +
-                "4.back\n")
+                "4.back")
             let input:String! = readLine()
             if input.trim()=="4"{
                 return
             }else if input.trim() == "1" || input.trim() == "2" || input.trim() == "3" {
                 print("order:\n" +
                 "1.ascenⅾing\n" +
-                "2.descending\n")
+                "2.descending")
             let input2:String! = readLine()
             if input2.trim() == "1" || input2.trim() == "2"{
                 sortAndShow(typeSort: input,orderSort: input2)
                 }else {
-                    print("****wrong input****\n")
+                    print("****wrong input****")
                 }
             }else {
-                print("****wrong input****\n")
+                print("****wrong input****")
             }
         }
 }
