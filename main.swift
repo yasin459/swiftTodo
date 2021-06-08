@@ -28,7 +28,7 @@ public class Deck{
         return nil
     }
     public static func == (lhs: Deck, rhs: Deck) -> Bool{
-        lhs.name == rhs.name
+        return lhs.name == rhs.name
     }
 }
 public class Todo{
@@ -72,7 +72,7 @@ public class Todo{
         return self.priority
     }
     public func hasDeck () -> Bool {
-        deck != nil
+        return deck != nil
     }
     public func deleteTodo(){
         if hasDeck() {
@@ -118,7 +118,7 @@ public class Todo{
         return nil
     }
     public static func == (lhs: Todo, rhs: Todo) -> Bool{
-        lhs.title == rhs.title
+        return lhs.title == rhs.title
     }
     public static func sorting(type:String,order:String)-> [Todo]  {
         if type=="1" {
