@@ -25,7 +25,7 @@
         - now choose ascending and descending by selecting `ascenⅾing` or `descending` respectively
 5. Create deck: `Deck Menu > add deck > ورودی ها را به ترتیب گفته شده وارد کنید`
     - Note: if you enter a deck title that already exists, error will show and you are sent back to Deck menu
-6. Add a todo to a deck: `Deck Menu > show all decks > show deck > تایتل لیستی را که میخواهید به آن تودو اضافه کنید وارد کنید > move todo to this deck > تایتل تودویی که میخواهید اضافه کنید را وارد کنید`
+6. Move a todo to a deck: `Deck Menu > show all decks > show deck > تایتل لیستی را که میخواهید به آن تودو اضافه کنید وارد کنید > move todo to this deck > تایتل تودویی که میخواهید اضافه کنید را وارد کنید`
     - Note 1: if no decks exists with that title, error will show and you are sent back to All Decks Menu 
     - Note 2: if no todos exists with that title, error will show and you are sent back to All Decks Menu
 7. View List of todos in a deck: `Deck Menu > show all decks > 1.show deck > تایتل لیستی را که میخواهید تودوهای آنرا ببینید`. now you will see the deck properties including its list of todos.
@@ -33,3 +33,4 @@
     - Note 1: if you are editing its title and enter a new title that already exists, error will show and you are sent back to All Todos Menu
     - Note 2: if you are editing its priority and enter a new priority that isnt a number, error will show and you are sent back to All Todos Menu
     - Note 3: if you are editing its deck and enter a new deck that doesnt exist, error will show and you are sent back to All Todos Menu
+    - Note 4: editing a todo's deck like this is the same as feature #6
