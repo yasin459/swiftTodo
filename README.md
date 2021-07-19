@@ -17,12 +17,12 @@
 3. Delete todo item: `Todo Menu > show all todos > show todo > تایتل تودویی که میخواهید حذف کنید وارد کنید > remove todo`
     - Note: if you enter a todo title that doesnt exist, error will show and you are sent back to All Todos Menu
 4. Sort todos: `Todo Menu > show all todos > sort todo list`. choosing what to sort by and being ascending or descending is like below:
-    4.1. sorting by todo's create time: ` > create time`
-      4.1.1 now choose ascending and descending by selecting `ascenⅾing` or `descending` respectively
-    4.2. sorting by title: ` > alphabetical`
-      4.2.1 now choose ascending and descending by selecting `ascenⅾing` or `descending` respectively
-    4.3. sorting by priority: ` > priority`
-      4.3.1 now choose ascending and descending by selecting `ascenⅾing` or `descending` respectively
+    1. sorting by todo's create time: ` > create time`
+        - now choose ascending and descending by selecting `ascenⅾing` or `descending` respectively
+    2. sorting by title: ` > alphabetical`
+        - now choose ascending and descending by selecting `ascenⅾing` or `descending` respectively
+    3. sorting by priority: ` > priority`
+        - now choose ascending and descending by selecting `ascenⅾing` or `descending` respectively
 5. Create deck: `Deck Menu > add deck > ورودی ها را به ترتیب گفته شده وارد کنید`
     - Note: if you enter a deck title that already exists, error will show and you are sent back to Deck menu
 6. Add a todo to a deck: `Deck Menu > show all decks > show deck > تایتل لیستی را که میخواهید به آن تودو اضافه کنید وارد کنید > move todo to this deck > تایتل تودویی که میخواهید اضافه کنید را وارد کنید`
